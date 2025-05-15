@@ -1,0 +1,3451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة | منصة التسوق الفاخرة</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    
+    <!-- CSS -->
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #FF2E63;
+            --primary-dark: #D82156;
+            --secondary: #252A34;
+            --light: #EAEAEA;
+            --dark: #1A1A1A;
+            --success: #28C76F;
+            --warning: #FF9F43;
+            --info: #00CFE8;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #F9F9F9;
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button, input, textarea {
+            font-family: inherit;
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 46, 99, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preloader-inner {
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 120px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .preloader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-top {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-contact {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-contact span {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-contact i {
+            margin-left: 8px;
+            color: var(--primary);
+        }
+
+        .header-social {
+            display: flex;
+        }
+
+        .header-social a {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .header-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .header-main {
+            background: white;
+            padding: 15px 0;
+        }
+
+        .header-main .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .logo img {
+            height: 50px;
+            margin-left: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 25px 12px 50px;
+            border-radius: 50px;
+            background: #F5F5F5;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            background: white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-action {
+            margin-right: 20px;
+            position: relative;
+            color: var(--secondary);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .header-action:hover {
+            color: var(--primary);
+        }
+
+        .action-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--primary);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links > li > a {
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .nav-links > li > a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links > li > a i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            padding: 10px 0;
+        }
+
+        .nav-links > li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            top: calc(100% + 10px);
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 8px 20px;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .dropdown li a:hover {
+            color: var(--primary);
+            padding-right: 25px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            padding: 30px;
+        }
+
+        .has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            top: calc(100% + 10px);
+        }
+
+        .mega-col {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .mega-col h4 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mega-col ul li a {
+            display: block;
+            padding: 8px 0;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .mega-col ul li a:hover {
+            color: var(--primary);
+            padding-right: 10px;
+        }
+
+        .mega-products {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .mega-product {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .mega-product:hover {
+            background: rgba(255, 46, 99, 0.05);
+        }
+
+        .mega-product img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-left: 10px;
+        }
+
+        .mega-product h5 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .mega-product .price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            height: 700px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 82px;
+        }
+
+        .swiper-slide {
+            position: relative;
+            height: 100%;
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+            z-index: 2;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10%;
+            max-width: 600px;
+            color: white;
+            z-index: 3;
+        }
+
+        .slide-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+        }
+
+        .hero-btns .btn {
+            margin-left: 15px;
+        }
+
+        .swiper-pagination {
+            bottom: 30px !important;
+        }
+
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: white;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: var(--primary);
+        }
+
+        /* Features */
+        .features {
+            background: white;
+            padding: 80px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 46, 99, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .feature-text {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        /* Categories */
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 250px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            color: white;
+        }
+
+        .category-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .category-overlay p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        /* Products */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-badge.new {
+            background: var(--success);
+        }
+
+        .product-badge.hot {
+            background: var(--warning);
+        }
+
+        .product-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            transform: translateY(100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .product-card:hover .product-actions {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .product-rating {
+            color: var(--warning);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .old-price {
+            font-size: 0.9rem;
+            color: #777;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary);
+            color: white;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-to-cart i {
+            margin-left: 8px;
+        }
+
+        .add-to-cart:hover {
+            background: var(--dark);
+        }
+
+        /* Deals */
+        .deals-section {
+            background: var(--secondary);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deals-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/pattern.png');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .deals-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+
+        .deals-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .deals-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .deals-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .deal-timer {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .timer-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            margin-left: 10px;
+            min-width: 80px;
+        }
+
+        .timer-box span:first-child {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .timer-box span:last-child {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .deals-products {
+            flex: 1;
+        }
+
+        .deal-product {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .deal-product:last-child {
+            margin-bottom: 0;
+        }
+
+        .deal-product-img {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .deal-product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .deal-product-info {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .deal-product-title {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .deal-product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .deal-current-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .deal-old-price {
+            font-size: 0.9rem;
+            color: #777;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .deal-progress {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .deal-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .deal-stock {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: #F5F7FA;
+        }
+
+        .testimonials-slider {
+            padding: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            margin: 10px;
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: rgba(255, 46, 99, 0.1);
+            z-index: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-left: 15px;
+            border: 3px solid var(--primary);
+        }
+
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Blog */
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-media {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .blog-card:hover .blog-img {
+            transform: scale(1.1);
+        }
+
+        .blog-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .blog-meta i {
+            margin-left: 5px;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: #777;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-right: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--secondary);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/pattern.png');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .newsletter-container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-section p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 20px 25px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0 30px;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Brands */
+        .brands-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .brands-slider {
+            padding: 30px;
+        }
+
+        .brand-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .brand-slide:hover {
+            opacity: 1;
+        }
+
+        .brand-slide img {
+            max-width: 100%;
+            height: auto;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .brand-slide:hover img {
+            filter: grayscale(0);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 80px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .footer-contact .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 46, 99, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .contact-text {
+            flex: 1;
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p, .contact-text a {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .footer-social {
+            margin-top: 25px;
+        }
+
+        .footer-social .social-links {
+            display: flex;
+        }
+
+        .footer-social .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-left: 10px;
+        }
+
+        .footer-social .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .footer-app {
+            margin-top: 25px;
+        }
+
+        .app-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .app-btn {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            transition: var(--transition);
+        }
+
+        .app-btn:hover {
+            background: var(--primary);
+        }
+
+        .app-btn i {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .app-text span {
+            display: block;
+            font-size: 0.7rem;
+        }
+
+        .app-text strong {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 0;
+            text-align: center;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .payment-methods img {
+            height: 25px;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .payment-methods img:hover {
+            opacity: 1;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.3);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Quick View Modal */
+        .quick-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .quick-view.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quick-view-container {
+            background: white;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quick-view-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .quick-view-close:hover {
+            background: var(--primary);
+        }
+
+        .quick-view-gallery {
+            flex: 1;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            background: #f9f9f9;
+        }
+
+        .quick-view-thumbnail {
+            margin-bottom: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .quick-view-thumbnail:hover,
+        .quick-view-thumbnail.active {
+            border-color: var(--primary);
+        }
+
+        .quick-view-main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .quick-view-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .quick-view-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .quick-view-rating .stars {
+            color: var(--warning);
+            margin-left: 10px;
+        }
+
+        .quick-view-rating .review-count {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .quick-view-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .quick-view-price .current {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quick-view-price .old {
+            font-size: 1.2rem;
+            color: #777;
+            text-decoration: line-through;
+            margin-right: 15px;
+        }
+
+        .quick-view-desc {
+            color: #777;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .quick-view-actions {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .quick-view-meta {
+            margin-bottom: 30px;
+        }
+
+        .meta-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .meta-item strong {
+            width: 120px;
+            color: var(--secondary);
+        }
+
+        .meta-item span {
+            flex: 1;
+            color: #777;
+        }
+
+        .quick-view-tabs {
+            margin-top: 40px;
+        }
+
+        .view-tabs-header {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .view-tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: #777;
+        }
+
+        .view-tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .view-tab-content {
+            display: none;
+        }
+
+        .view-tab-content.active {
+            display: block;
+        }
+
+        /* Shopping Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            left: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        .cart-close {
+            width: 30px;
+            height: 30px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-close:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cart-body {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-quantity button {
+            width: 25px;
+            height: 25px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cart-item-quantity input {
+            width: 40px;
+            height: 25px;
+            text-align: center;
+            margin: 0 5px;
+        }
+
+        .cart-item-remove {
+            color: #777;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-item-remove:hover {
+            color: var(--primary);
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-subtotal {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cart-buttons .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Login Modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .login-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-container {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        .login-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 30px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-close:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #777;
+        }
+
+        .login-social {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin: 0 5px;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-login-btn.facebook {
+            background: #3b5998;
+        }
+
+        .social-login-btn.google {
+            background: #db4437;
+        }
+
+        .social-login-btn.twitter {
+            background: #1da1f2;
+        }
+
+        .social-login-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #777;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .login-divider span {
+            padding: 0 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 46, 99, 0.2);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-left: 8px;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        .register-link {
+            text-align: center;
+            color: #777;
+        }
+
+        .register-link a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .deals-container {
+                flex-direction: column;
+            }
+            
+            .deals-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .deal-timer {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .hero-slider {
+                height: 600px;
+            }
+            
+            .slide-content h2 {
+                font-size: 2.8rem;
+            }
+            
+            .slide-content p {
+                font-size: 1.1rem;
+            }
+            
+            .quick-view-container {
+                flex-direction: column;
+                max-height: 90vh;
+            }
+            
+            .quick-view-gallery {
+                max-height: 200px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                display: flex;
+                padding: 15px;
+            }
+            
+            .quick-view-thumbnail {
+                margin-bottom: 0;
+                margin-right: 15px;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-main .container {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                order: 1;
+                margin-bottom: 15px;
+            }
+            
+            .search-bar {
+                order: 3;
+                margin: 15px 0;
+                width: 100%;
+            }
+            
+            .header-actions {
+                order: 2;
+                margin-right: auto;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links > li {
+                margin-bottom: 10px;
+            }
+            
+            .mega-menu {
+                width: 100%;
+                right: auto;
+                left: 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                border-radius: var(--border-radius);
+            }
+            
+            .newsletter-form input {
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+            }
+            
+            .newsletter-form button {
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+                padding: 15px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-top .container {
+                flex-direction: column;
+            }
+            
+            .header-contact {
+                margin-bottom: 10px;
+            }
+            
+            .hero-slider {
+                height: 500px;
+                margin-top: 122px;
+            }
+            
+            .slide-content {
+                right: 5%;
+                left: 5%;
+                max-width: 90%;
+            }
+            
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+            
+            .hero-btns .btn {
+                margin-left: 0;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .deal-timer {
+                flex-wrap: wrap;
+            }
+            
+            .timer-box {
+                margin-bottom: 10px;
+            }
+            
+            .deal-product {
+                flex-direction: column;
+            }
+            
+            .deal-product-img {
+                width: 100%;
+                height: 150px;
+            }
+            
+            .quick-view-container,
+            .login-container {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .quick-view-main {
+                padding: 20px;
+            }
+            
+            .quick-view-title {
+                font-size: 1.5rem;
+            }
+            
+            .quick-view-actions {
+                flex-direction: column;
+            }
+            
+            .quantity-selector {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-slideUp {
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <img src="assets/images/logo.png" alt="سلة" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-contact">
+                    <span><i class="fas fa-phone"></i> 920000000</span>
+                    <span><i class="fas fa-envelope"></i> info@salla.com</span>
+                </div>
+                <div class="header-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.png" alt="سلة">
+                    <span>سلة</span>
+                </a>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="ابحث عن منتجات، ماركات، فئات...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="header-actions">
+                    <a href="#" class="header-action" id="login-btn">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <a href="#" class="header-action">
+                        <i class="far fa-heart"></i>
+                        <span class="action-badge">3</span>
+                    </a>
+                    <a href="#" class="header-action" id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="action-badge">5</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-links">
+                    <li class="has-mega">
+                        <a href="#">الأقسام <i class="fas fa-chevron-down"></i></a>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <h4>الألكترونيات</h4>
+                                <ul>
+                                    <li><a href="#">الهواتف الذكية</a></li>
+                                    <li><a href="#">أجهزة اللابتوب</a></li>
+                                    <li><a href="#">الأجهزة اللوحية</a></li>
+                                    <li><a href="#">الأجهزة المنزلية</a></li>
+                                    <li><a href="#">ملحقات الألكترونيات</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>الموضة</h4>
+                                <ul>
+                                    <li><a href="#">ملابس رجالية</a></li>
+                                    <li><a href="#">ملابس نسائية</a></li>
+                                    <li><a href="#">أحذية</a></li>
+                                    <li><a href="#">ساعات</a></li>
+                                    <li><a href="#">إكسسوارات</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>المنزل والحديقة</h4>
+                                <ul>
+                                    <li><a href="#">أثاث</a></li>
+                                    <li><a href="#">ديكور</a></li>
+                                    <li><a href="#">أدوات المطبخ</a></li>
+                                    <li><a href="#">حديقة</a></li>
+                                    <li><a href="#">أدوات تنظيف</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>منتجات مميزة</h4>
+                                <div class="mega-products">
+                                    <a href="#" class="mega-product">
+                                        <img src="https://via.placeholder.com/60" alt="Product">
+                                        <div>
+                                            <h5>ساعة ذكية</h5>
+                                            <span class="price">499 ر.س</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="mega-product">
+                                        <img src="https://via.placeholder.com/60" alt="Product">
+                                        <div>
+                                            <h5>حقيبة يد</h5>
+                                            <span class="price">349 ر.س</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">المتجر</a></li>
+                    <li><a href="#">العروض</a></li>
+                    <li><a href="#">الماركات</a></li>
+                    <li>
+                        <a href="#">الصفحات <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="about.html">من نحن</a></li>
+                            <li><a href="contact.html">اتصل بنا</a></li>
+                            <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                            <li><a href="blog.html">المدونة</a></li>
+                            <li><a href="404.html">404 صفحة</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="header-promo">
+                    <a href="#" class="promo-text">خصم يصل إلى 50%</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <div class="hero-slider swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slide-bg" style="background-image: url('https://via.placeholder.com/1920x700');"></div>
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2 class="animate__animated animate__fadeInDown">تسوق أحدث المنتجات</h2>
+                    <p class="animate__animated animate__fadeInUp animate__delay-1s">اكتشف تشكيلتنا الواسعة من المنتجات بأسعار تنافسية</p>
+                    <div class="hero-btns animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#" class="btn btn-primary">تسوق الآن</a>
+                        <a href="#" class="btn btn-outline">عرض المزيد</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slide-bg" style="background-image: url('https://via.placeholder.com/1920x700');"></div>
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2>خصم يصل إلى 70%</h2>
+                    <p>لا تفوت فرصة الحصول على أفضل العروض والتخفيضات</p>
+                    <div class="hero-btns">
+                        <a href="#" class="btn btn-primary">تسوق الآن</a>
+                        <a href="#" class="btn btn-white">عرض المزيد</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-container">
+                <div class="feature-card animate-fadeIn">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="feature-title">توصيل سريع</h3>
+                    <p class="feature-text">توصيل لجميع أنحاء المملكة خلال 2-5 أيام</p>
+                </div>
+                <div class="feature-card animate-fadeIn" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3 class="feature-title">إرجاع سهل</h3>
+                    <p class="feature-text">إمكانية إرجاع المنتج خلال 14 يوم</p>
+                </div>
+                <div class="feature-card animate-fadeIn" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">دفع آمن</h3>
+                    <p class="feature-text">أنظمة دفع إلكتروني آمنة ومشفرة</p>
+                </div>
+                <div class="feature-card animate-fadeIn" style="animation-delay: 0.6s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">دعم فني</h3>
+                    <p class="feature-text">خدمة عملاء متاحة 24/7 لمساعدتك</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">تصفح الأقسام</h2>
+                <p class="section-subtitle">اكتشف مجموعتنا الواسعة من الفئات المميزة</p>
+            </div>
+            <div class="categories-container">
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://via.placeholder.com/600x400" alt="إلكترونيات">
+                    </div>
+                    <div class="category-overlay">
+                        <h3>إلكترونيات</h3>
+                        <p>أحدث الأجهزة الإلكترونية</p>
+                        <a href="#" class="btn btn-outline">تصفح القسم</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://via.placeholder.com/600x400" alt="أزياء">
+                    </div>
+                    <div class="category-overlay">
+                        <h3>أزياء</h3>
+                        <p>أحدث صيحات الموضة</p>
+                        <a href="#" class="btn btn-outline">تصفح القسم</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="https://via.placeholder.com/600x400" alt="منزل">
+                    </div>
+                    <div class="category-overlay">
+                        <h3>منزل</h3>
+                        <p>كل ما يلزم منزلك</p>
+                        <a href="#" class="btn btn-outline">تصفح القسم</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">منتجات مميزة</h2>
+                <p class="section-subtitle">أفضل المنتجات المختارة بعناية لك</p>
+            </div>
+            <div class="products-container">
+                <div class="product-card">
+                    <span class="product-badge">خصم 20%</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">إلكترونيات</span>
+                        <h3 class="product-title">ساعة ذكية ماركة XYZ</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(25)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price">499 ر.س</span>
+                            <span class="current-price">399 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-badge new">جديد</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">أجهزة</span>
+                        <h3 class="product-title">هاتف ذكي ABC - 128 جيجا</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(48)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">2,199 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-badge hot">الأكثر مبيعاً</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">أزياء</span>
+                        <h3 class="product-title">حقيبة يد نسائية فاخرة</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(36)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price">499 ر.س</span>
+                            <span class="current-price">349 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">منزل</span>
+                        <h3 class="product-title">طقم أدوات مطبخ 32 قطعة</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(112)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">249 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-badge">خصم 15%</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">إلكترونيات</span>
+                        <h3 class="product-title">سماعات لاسلكية بلوتوث</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(87)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price">199 ر.س</span>
+                            <span class="current-price">169 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">أزياء</span>
+                        <h3 class="product-title">ساعة يد رجالية كلاسيكية</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(29)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">279 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-badge hot">الأكثر مبيعاً</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">منزل</span>
+                        <h3 class="product-title">سجادة صلاة فاخرة</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(156)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="old-price">129 ر.س</span>
+                            <span class="current-price">99 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="product-badge new">جديد</span>
+                    <div class="product-media">
+                        <img src="https://via.placeholder.com/300x300" alt="Product" class="product-img">
+                        <div class="product-actions">
+                            <a href="#" class="action-btn quick-view-btn"><i class="far fa-eye"></i></a>
+                            <a href="#" class="action-btn"><i class="far fa-heart"></i></a>
+                            <a href="#" class="action-btn"><i class="fas fa-random"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">إلكترونيات</span>
+                        <h3 class="product-title">لوحة مفاتيح ميكانيكية</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <span>(18)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">189 ر.س</span>
+                        </div>
+                        <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> أضف إلى السلة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section class="deals-section">
+        <div class="container">
+            <div class="deals-container">
+                <div class="deals-content">
+                    <h2>عروض خاصة لفترة محدودة</h2>
+                    <p>استفد من عروضنا الحصرية على مجموعة مختارة من المنتجات. هذه العروض سارية لفترة محدودة فقط!</p>
+                    <div class="deal-timer">
+                        <div class="timer-box">
+                            <span>02</span>
+                            <span>أيام</span>
+                        </div>
+                        <div class="timer-box">
+                            <span>12</span>
+                            <span>ساعات</span>
+                        </div>
+                        <div class="timer-box">
+                            <span>45</span>
+                            <span>دقائق</span>
+                        </div>
+                        <div class="timer-box">
+                            <span>30</span>
+                            <span>ثواني</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-white animate-pulse">تسوق العروض الآن</a>
+                </div>
+                <div class="deals-products">
+                    <div class="deal-product">
+                        <div class="deal-product-img">
+                            <img src="https://via.placeholder.com/120x120" alt="Product">
+                        </div>
+                        <div class="deal-product-info">
+                            <h3 class="deal-product-title">هاتف ذكي ABC - ذاكرة 128 جيجا</h3>
+                            <div class="deal-product-price">
+                                <span class="deal-old-price">2,499 ر.س</span>
+                                <span class="deal-current-price">2,199 ر.س</span>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="deal-progress-bar" style="width: 70%"></div>
+                            </div>
+                            <div class="deal-stock">
+                                <span>تم بيع: 35 قطعة</span>
+                                <span>المتبقي: 15 قطعة</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="deal-product">
+                        <div class="deal-product-img">
+                            <img src="https://via.placeholder.com/120x120" alt="Product">
+                        </div>
+                        <div class="deal-product-info">
+                            <h3 class="deal-product-title">حقيبة يد نسائية فاخرة</h3>
+                            <div class="deal-product-price">
+                                <span class="deal-old-price">499 ر.س</span>
+                                <span class="deal-current-price">349 ر.س</span>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="deal-progress-bar" style="width: 50%"></div>
+                            </div>
+                            <div class="deal-stock">
+                                <span>تم بيع: 25 قطعة</span>
+                                <span>المتبقي: 25 قطعة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">الماركات المتعاونة</h2>
+                <p class="section-subtitle">أشهر الماركات العالمية بأسعار تنافسية</p>
+            </div>
+            <div class="brands-slider swiper">
+                <div class="swiper-wrapper">
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                    <div class="brand-slide swiper-slide">
+                        <img src="https://via.placeholder.com/150x80" alt="Brand">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">آراء عملائنا</h2>
+                <p class="section-subtitle">ما يقوله عملاؤنا عن تجربتهم مع منصة سلة</p>
+            </div>
+            <div class="testimonials-slider swiper">
+                <div class="swiper-wrapper">
+                    <div class="testimonial-card swiper-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">لقد كانت تجربة رائعة مع منصة سلة، المنتجات ذات جودة عالية والتوصيل كان سريعًا جدًا. سأكون عميلاً دائمًا بالتأكيد!</p>
+                            <div class="testimonial-author">
+                                <div class="author-img">
+                                    <img src="https://via.placeholder.com/70x70" alt="Customer">
+                                </div>
+                                <div class="author-info">
+                                    <h4>أحمد محمد</h4>
+                                    <p>عميل منذ 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card swiper-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">أشكر فريق سلة على الخدمة الممتازة والدعم الفني السريع. كان لدي مشكلة في أحد المنتجات وتم حلها خلال ساعات!</p>
+                            <div class="testimonial-author">
+                                <div class="author-img">
+                                    <img src="https://via.placeholder.com/70x70" alt="Customer">
+                                </div>
+                                <div class="author-info">
+                                    <h4>نورة عبدالله</h4>
+                                    <p>عميلة منذ 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card swiper-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">أسعار تنافسية وجودة ممتازة. أوصي جميع أصدقائي بالتسوق من سلة لأنهم الأفضل في السوق المحلي بدون منازع.</p>
+                            <div class="testimonial-author">
+                                <div class="author-img">
+                                    <img src="https://via.placeholder.com/70x70" alt="Customer">
+                                </div>
+                                <div class="author-info">
+                                    <h4>خالد سعد</h4>
+                                    <p>عميل منذ 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">أحدث المقالات</h2>
+                <p class="section-subtitle">آخر الأخبار والنصائح حول عالم التسوق والموضة</p>
+            </div>
+            <div class="blog-container">
+                <div class="blog-card">
+                    <div class="blog-media">
+                        <img src="https://via.placeholder.com/350x220" alt="Blog Post" class="blog-img">
+                        <div class="blog-date">15 يونيو</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> بواسطة أحمد</span>
+                            <span><i class="far fa-comments"></i> 12 تعليق</span>
+                        </div>
+                        <h3 class="blog-title">أحدث صيحات الموضة لعام 2023</h3>
+                        <p class="blog-excerpt">اكتشف أحدث صيحات الموضة لهذا العام وكيفية تنسيقها لتبدو أنيقًا في كل المناسبات...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-media">
+                        <img src="https://via.placeholder.com/350x220" alt="Blog Post" class="blog-img">
+                        <div class="blog-date">10 يونيو</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> بواسطة نورة</span>
+                            <span><i class="far fa-comments"></i> 8 تعليقات</span>
+                        </div>
+                        <h3 class="blog-title">كيف تختار الأجهزة الإلكترونية المناسبة</h3>
+                        <p class="blog-excerpt">دليل شامل لاختيار أفضل الأجهزة الإلكترونية التي تناسب احتياجاتك وميزانيتك...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-media">
+                        <img src="https://via.placeholder.com/350x220" alt="Blog Post" class="blog-img">
+                        <div class="blog-date">5 يونيو</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> بواسطة خالد</span>
+                            <span><i class="far fa-comments"></i> 15 تعليق</span>
+                        </div>
+                        <h3 class="blog-title">نصائح لتوفير المال أثناء التسوق</h3>
+                        <p class="blog-excerpt">تعلم كيفية التسوق بذكاء وتوفير المال مع الحصول على أفضل المنتجات بأسعار مناسبة...</p>
+                        <a href="#" class="read-more">قراءة المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>اشترك في نشرتنا البريدية</h2>
+            <p>احصل على آخر العروض والتخفيضات مباشرة إلى بريدك الإلكتروني</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="أدخل بريدك الإلكتروني">
+                <button type="submit">اشترك الآن</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>عن سلة</h3>
+                    <p>منصة سلة هي وجهتك الأولى للتسوق الإلكتروني في الوطن العربي، نقدم أفضل المنتجات بأفضل الأسعار مع خدمة عملاء مميزة.</p>
+                    <div class="footer-social">
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">الرئيسية</a></li>
+                        <li><a href="#">المتجر</a></li>
+                        <li><a href="#">العروض</a></li>
+                        <li><a href="#">الماركات</a></li>
+                        <li><a href="#">المدونة</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>خدمة العملاء</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">حسابي</a></li>
+                        <li><a href="#">تتبع الطلب</a></li>
+                        <li><a href="#">سياسة الإرجاع</a></li>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">الشروط والأحكام</a></li>
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>اتصل بنا</h3>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>العنوان</h4>
+                                <p>المملكة العربية السعودية، الرياض</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>الهاتف</h4>
+                                <a href="tel:920000000">920000000</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>البريد الإلكتروني</h4>
+                                <a href="mailto:info@salla.com">info@salla.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-app">
+                        <h4>حمل التطبيق</h4>
+                        <div class="app-buttons">
+                            <a href="#" class="app-btn">
+                                <i class="fab fa-apple"></i>
+                                <div class="app-text">
+                                    <span>حمل من</span>
+                                    <strong>آب ستور</strong>
+                                </div>
+                            </a>
+                            <a href="#" class="app-btn">
+                                <i class="fab fa-google-play"></i>
+                                <div class="app-text">
+                                    <span>حمل من</span>
+                                    <strong>جوجل بلاي</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; 2023 سلة. تصميم وتطوير <a href="#" style="color: var(--primary);">فريق سلة</a></p>
+                <div class="payment-methods">
+                    <img src="https://via.placeholder.com/50x30" alt="Visa">
+                    <img src="https://via.placeholder.com/50x30" alt="Mastercard">
+                    <img src="https://via.placeholder.com/50x30" alt="Mada">
+                    <img src="https://via.placeholder.com/50x30" alt="Apple Pay">
+                    <img src="https://via.placeholder.com/50x30" alt="STC Pay">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view">
+        <div class="quick-view-container">
+            <button class="quick-view-close"><i class="fas fa-times"></i></button>
+            <div class="quick-view-gallery">
+                <img src="https://via.placeholder.com/150" alt="Product" class="quick-view-thumbnail active">
+                <img src="https://via.placeholder.com/150" alt="Product" class="quick-view-thumbnail">
+                <img src="https://via.placeholder.com/150" alt="Product" class="quick-view-thumbnail">
+                <img src="https://via.placeholder.com/150" alt="Product" class="quick-view-thumbnail">
+            </div>
+            <div class="quick-view-main">
+                <h2 class="quick-view-title">ساعة ذكية ماركة XYZ - الجيل الثالث</h2>
+                <div class="quick-view-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="review-count">(25 تقييم)</span>
+                </div>
+                <div class="quick-view-price">
+                    <span class="old">499 ر.س</span>
+                    <span class="current">399 ر.س</span>
+                </div>
+                <p class="quick-view-desc">
+                    ساعة ذكية متطورة مع شاشة لمس AMOLED مقاس 1.4 بوصة، مقاومة للماء حتى 50 متر، تتبع النشاط البدني، معدل ضربات القلب، النوم، وتتوافق مع نظامي iOS و Android.
+                </p>
+                <div class="quick-view-actions">
+                    <button class="btn btn-primary">أضف إلى السلة</button>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" value="1" min="1" class="quantity-input">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                </div>
+                <div class="quick-view-meta">
+                    <div class="meta-item">
+                        <strong>الكود:</strong>
+                        <span>PRD-12345</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>الفئة:</strong>
+                        <span>إلكترونيات - ساعات ذكية</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>التوفر:</strong>
+                        <span>متوفر في المخزن</span>
+                    </div>
+                </div>
+                <div class="quick-view-tabs">
+                    <div class="view-tabs-header">
+                        <button class="view-tab-btn active">المواصفات</button>
+                        <button class="view-tab-btn">التقييمات</button>
+                        <button class="view-tab-btn">الأسئلة</button>
+                    </div>
+                    <div class="view-tab-content active">
+                        <p>الشاشة: AMOLED 1.4 بوصة - دقة 454×454 بكسل</p>
+                        <p>المعالج: Dual-core 1.2GHz</p>
+                        <p>الذاكرة: 4GB تخزين داخلي، 512MB RAM</p>
+                        <p>البطارية: 300mAh - تدوم حتى 7 أيام</p>
+                        <p>المقاومة: مقاومة للماء حتى 50 متر</p>
+                        <p>التوافق: iOS 10+ و Android 5.0+</p>
+                    </div>
+                    <div class="view-tab-content">
+                        <p>لا توجد تقييمات بعد.</p>
+                    </div>
+                    <div class="view-tab-content">
+                        <p>لا توجد أسئلة بعد.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="cart-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <div class="cart-item">
+                <div class="cart-item-img">
+                    <img src="https://via.placeholder.com/80x80" alt="Product">
+                </div>
+                <div class="cart-item-info">
+                    <a href="#" class="cart-item-title">ساعة ذكية ماركة XYZ</a>
+                    <span class="cart-item-price">399 ر.س</span>
+                    <div class="cart-item-quantity">
+                        <button class="minus">-</button>
+                        <input type="number" value="1" min="1">
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove"><i class="fas fa-trash"></i></button>
+            </div>
+            <div class="cart-item">
+                <div class="cart-item-img">
+                    <img src="https://via.placeholder.com/80x80" alt="Product">
+                </div>
+                <div class="cart-item-info">
+                    <a href="#" class="cart-item-title">حقيبة يد نسائية</a>
+                    <span class="cart-item-price">349 ر.س</span>
+                    <div class="cart-item-quantity">
+                        <button class="minus">-</button>
+                        <input type="number" value="1" min="1">
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>المجموع الفرعي</span>
+                <span>748 ر.س</span>
+            </div>
+            <div class="cart-buttons">
+                <a href="#" class="btn btn-primary">إتمام الشراء</a>
+                <a href="#" class="btn btn-outline">عرض السلة</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal">
+        <div class="login-container">
+            <button class="login-close"><i class="fas fa-times"></i></button>
+            <div class="login-header">
+                <h2>تسجيل الدخول</h2>
+                <p>سجل دخولك للوصول إلى حسابك ومتابعة طلباتك</p>
+            </div>
+            <div class="login-social">
+                <button class="social-login-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                <button class="social-login-btn google"><i class="fab fa-google"></i></button>
+                <button class="social-login-btn twitter"><i class="fab fa-twitter"></i></button>
+            </div>
+            <div class="login-divider">
+                <span>أو</span>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" class="form-control" placeholder="أدخل بريدك الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
+                </div>
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">تذكرني</label>
+                    </div>
+                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+                <button type="submit" class="btn btn-primary login-btn">تسجيل الدخول</button>
+            </form>
+            <div class="register-link">
+                <p>ليس لديك حساب؟ <a href="#">سجل الآن</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            document.querySelector('.preloader').style.display = 'none';
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Hero Slider
+        const heroSlider = new Swiper('.hero-slider', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        // Testimonials Slider
+        const testimonialsSlider = new Swiper('.testimonials-slider', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                992: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+
+        // Brands Slider
+        const brandsSlider = new Swiper('.brands-slider', {
+            slidesPerView: 2,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 4,
+                },
+                992: {
+                    slidesPerView: 5,
+                },
+                1200: {
+                    slidesPerView: 6,
+                }
+            }
+        });
+
+        // Quick View Modal
+        const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+        const quickViewModal = document.querySelector('.quick-view');
+        const quickViewClose = document.querySelector('.quick-view-close');
+        const quickViewThumbnails = document.querySelectorAll('.quick-view-thumbnail');
+
+        quickViewBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                quickViewModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        quickViewClose.addEventListener('click', function() {
+            quickViewModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        quickViewThumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                quickViewThumbnails.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Cart Sidebar
+        const cartBtn = document.getElementById('cart-btn');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const cartClose = document.querySelector('.cart-close');
+
+        cartBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            cartSidebar.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        cartClose.addEventListener('click', function() {
+            cartSidebar.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Login Modal
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.querySelector('.login-modal');
+        const loginClose = document.querySelector('.login-close');
+
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        loginClose.addEventListener('click', function() {
+            loginModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Quantity Selector
+        const quantityMinusBtns = document.querySelectorAll('.quantity-btn.minus');
+        const quantityPlusBtns = document.querySelectorAll('.quantity-btn.plus');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+
+        quantityMinusBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const input = this.nextElementSibling;
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+        });
+
+        quantityPlusBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const input = this.previousElementSibling;
+                input.value = parseInt(input.value) + 1;
+            });
+        });
+
+        // Quick View Tabs
+        const viewTabBtns = document.querySelectorAll('.view-tab-btn');
+        const viewTabContents = document.querySelectorAll('.view-tab-content');
+
+        viewTabBtns.forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                viewTabBtns.forEach(b => b.classList.remove('active'));
+                viewTabContents.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                viewTabContents[index].classList.add('active');
+            });
+        });
+
+        // Animation on Scroll
+        const animateElements = document.querySelectorAll('.animate-fadeIn, .animate-slideUp');
+        
+        function checkAnimation() {
+            animateElements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkAnimation);
+        window.addEventListener('load', checkAnimation);
+    </script>
+</body>
+</html>
